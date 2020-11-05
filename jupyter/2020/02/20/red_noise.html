@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      3 min read
     
 </span></p>
 
@@ -116,6 +116,12 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Hasselmann-(as-explained-by-Dommenget-and-Latif,-2000)">Hasselmann (as explained by Dommenget and Latif, 2000) </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Redness-of-the-SST-anomalies">Redness of the SST anomalies </a></li>
+<li class="toc-entry toc-h2"><a href="#Conclusions">Conclusions </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#Simple-red-noise-null-hypothesis">Simple red noise null hypothesis </a></li>
 </ul><!--
 #################################################
@@ -126,6 +132,49 @@ window.onload = wrap_img;
 
 <div class="container" id="notebook-container">
         
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hasselmann-(as-explained-by-Dommenget-and-Latif,-2000)">
+<a class="anchor" href="#Hasselmann-(as-explained-by-Dommenget-and-Latif,-2000)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hasselmann (as explained by Dommenget and Latif, 2000)<a class="anchor-link" href="#Hasselmann-(as-explained-by-Dommenget-and-Latif,-2000)"> </a>
+</h1>
+<p>Hasselmann (1976) attempts to explain the mechanism of natural climate variabilty by dividing the climate system into a fast system and a slow system. The fast system could be the atmosphere, represented as white noise. The slower component is the ocean and is explained by the integration of white noise (AR-1). In this picture the ocean is merely a passive part of the climate system, which amplifies long-term variability, due to its large heat capacity, but dynamical processes in the ocean are not considered.</p>
+<p>The resulting stochastic model of the SST variability is described by an autoregressive process of the first order, which is the simplest statistical model that can be applied to a stationary process. The stochastic climate model by Hasselmann is tehrefore often chosen as the null hypothesis of SST variability.</p>
+<p>Slab ocean-atmosphere models can be regarded as a numerical realization of the null hypothesis (AR(1)-process) of Hasselmann's stochastic climate model.</p>
+<p>The null hypothesis of SST variability in the midlatitudes, described by Hasselmann's stochastic climate model, assumes that the SST variability is well described by the integration of the atmospheric heat flux with the heat capacity of the ocean's mixed layer.</p>
+<p>$\frac{d SST}{dT} = \frac{1}{C_p \rho_w d_{mix}}* F + \Delta T_c$</p>
+<p>$C_p$ = specifc heat of sea water</p>
+<p>$\rho_w$ = density of sea water</p>
+<p>$d_{mix}$ = depth of mixed layer</p>
+<p>$F$ = net atmospheric heat flux</p>
+<p>$\Delta T_c$ = climatology temperature correction</p>
+<p>The only free parameter in this eqaution is the mixed layer depth, which was chosen to be 50 meters for all points. This value is roughly the global mean vlaue for the mixed layer depth as was determinded from the observations by Levitus (1982).</p>
+<h2 id="Redness-of-the-SST-anomalies">
+<a class="anchor" href="#Redness-of-the-SST-anomalies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redness of the SST anomalies<a class="anchor-link" href="#Redness-of-the-SST-anomalies"> </a>
+</h2>
+<p>The standard deviation of the SST anoamlies do not aloine describe the large-scale character of the SST varaiblity. An important feature of the SSt variability is the increase of the variance in the SST power spectra with period, which is the so called redness of the spectra. If the SST anomalies follow an AR(1)-process than the redness can be estimated by the lag-1 correlation.</p>
+<p>$C(\omega) = \frac{\sigma^2}{(1-\alpha)^2+\omega^2}$</p>
+<p>$\sigma$ = standard deviation</p>
+<p>$\omega$ = frequency</p>
+<p>$\alpha$ = lag-1 correlation based on monthly mean time series</p>
+<p>The increase of $C(\omega)$ is only a function of $\alpha$, hence the redness $Q_{red}$ can be defined as</p>
+<p>$Q_{red}$ = $\frac{1}{(1-\alpha)^2}$</p>
+<h2 id="Conclusions">
+<a class="anchor" href="#Conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions<a class="anchor-link" href="#Conclusions"> </a>
+</h2>
+<ol>
+<li>fully coupled models are signifcantly different in terms of large-scale features of the SST variability than slab ocean models</li>
+<li>only slab ocean models can be regarded as an AR(1) process</li>
+</ol>
+<p>The diference between the AR(1)-process and the SST spectra in the simulations with fully dynamical ocean models is characterized
+by a slower increase of the SST variance from the shorter time periods to the longer time
+periods, which leads to increased variance of the SST on the seasonal and the decadal time
+scale relative to the tted AR(1)-process
+AMO and AMOC.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
