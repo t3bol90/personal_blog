@@ -29,7 +29,7 @@
   
       ,"page1": {
           "title": "About Me",
-          "content": "This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
+          "content": "Main site florianboergel.github.io [^1]. . On this side, you can find some code and lecture examples. .",
           "url": "https://florianboergel.github.io/personal_blog/about/",
           "relUrl": "/about/",
           "date": ""
