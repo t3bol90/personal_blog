@@ -6,3 +6,4 @@ dependencies:
   - matplotlib
   - xarray
   - netcdf4
+  - ipywidgets
