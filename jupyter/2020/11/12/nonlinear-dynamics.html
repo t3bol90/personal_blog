@@ -140,6 +140,14 @@ window.onload = wrap_img;
 
 <div class="container" id="notebook-container">
         
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thanks a lot to <a href="https://github.com/dpsanders">David P. Sanders</a> for providing the lecture. The original lecture is part of the MIT class <a href="https://computationalthinking.mit.edu/Fall20/lecture20/">Introduction to Computational Thinking</a>.</p>
+<p>This class uses the <a href="http://www.julialang.org/">Julia programming language</a>. The orignal code can be found under <a href="https://github.com/mitmath/18S191/blob/master/lecture_notebooks/week11/nonlinear_dynamics_bifurcations.jl">github.com</a></p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -201,8 +209,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>How does the climate change over time? In the last lecture we saw that we our simple model is already quite good simulating how the climate changes over time.</p>
-<p>Our simple model is based on <em>ordinary differential equations (ODEs)</em>, where some variables change in timee - the rate of change as function of their current values.</p>
+<p>How does the climate change over time? In the last lecture we saw that our simple model is already quite good simulating how the climate changes over time.</p>
+<p>Our simple model is based on <em>ordinary differential equations (ODEs)</em>, where some variables change in time - with the rate of change as function of their current values.</p>
 <p>
 $$ \frac{dx(t)}{dt} = f(x(t)) $$
 </p>
@@ -224,14 +232,7 @@ $$ x(t+\Delta t) = x(t) + \Delta t f(x(t)) $$
 <p>
 $$ \frac{dx}{dt} = x(1-x) $$
 </p>
-<p>using the Euler method:</p>
-<p>
-$$ \frac{x(t+\Delta t) - x(t)}{\Delta t} = x (1-x) $$
-
-
-$$ x(t+\Delta t) = x(t_0) + \Delta t*(x(t_0))$$
-</p>
-<p>Using the notation from the previous lecture we summarize:</p>
+<p>using the Euler method and the notation from the previous lecture we summarize:</p>
 <p>
 $$ x_{n+1} = x_n + \Delta t \cdot \text{tendency}(x_n; ...)$$
 </p>
@@ -303,7 +304,7 @@ $$ x_{n+1} = x_n + \Delta t \cdot \text{tendency}(x_n; ...)$$
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x7f0e8a1c5b50&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x7f0e83f4a130&gt;]</pre>
 </div>
 
 </div>
@@ -327,7 +328,7 @@ $$ x_{n+1} = x_n + \Delta t \cdot \text{tendency}(x_n; ...)$$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But what happens if we have a different initial condition.</p>
+<p>But what happens if we have a different initial condition:</p>
 
 </div>
 </div>
