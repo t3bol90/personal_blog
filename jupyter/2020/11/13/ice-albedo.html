@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      8 min read
+      11 min read
     
 </span></p>
 
@@ -163,6 +163,36 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Review-of-Lecture-2">Review of Lecture 2<a class="anchor-link" href="#Review-of-Lecture-2"> </a></h2><p>Recall from the last Lecture that the zero-dimensional energy balance equation is</p>
+\begin{gather}
+\color{brown}{C \frac{dT}{dt}}
+\; \color{black}{=} \; \color{orange}{\frac{(1 - α)S}{4}}
+\; \color{black}{-} \; \color{blue}{(A - BT)}
+\; \color{black}{+} \; \color{grey}{a \ln \left( \frac{[\text{CO}₂]}{[\text{CO}₂]_{\text{PI}}} \right)},
+\end{gather}<p><img src="https://raw.githubusercontent.com/hdrake/hdrake.github.io/master/figures/planetary_energy_balance.png" alt="" /></p>
+<p>Today, we will ignore changes in CO$_2$, so that</p>
+<p>$\ln \left( \frac{ [\text{CO}₂]_{\text{PI}} }{[\text{CO}₂]_{\text{PI}}} \right) = \ln(1) = 0$</p>
+<p>and the model simplifies to</p>
+\begin{gather}
+\color{brown}{C \frac{dT}{dt}}
+\; \color{black}{=} \; \color{orange}{\frac{(1 - α)S}{4}}
+\; \color{black}{-} \; \color{blue}{(A - BT)}.
+\end{gather}<p>The dynamics of this <strong>Ordinary Differential Equation (ODE)</strong> are quite simple because it is <em>linear</em>: we can rewrite it in the form</p>
+<p>
+$$\dot{T} = f(T(t))$$
+</p>
+<p>where</p>
+<p>
+$$f(x) = \alpha x + \beta$$
+</p>
+<p>is a <em>linear</em> function of x. A linear ODE permits only one stable solution, $\dot{T} = 0$, which in Lecture 1 we found was Earth's pre-industrial temperature $T_{0} = 14$°C.</p>
+<p>In this lecture, we show how a small modification that makes one term in our simple climate model non-linear completely changes its dynamics, allowing us to explain the existence of both "Snowball Earth" and the relatively warm pre-industrial climate that allowed humans to thrive.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -173,6 +203,12 @@ window.onload = wrap_img;
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 </pre></div>
 
     </div>
@@ -184,7 +220,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1)-Background:-Snowball-Earth">1) Background: Snowball Earth<a class="anchor-link" href="#1)-Background:-Snowball-Earth"> </a></h2><p>Geological evidence shows that the Neoproterozoic Era (550 to 1000 million years ago) is marked by two global glaciation events, in which Earth's surface was covered in ice and snow from the Equator to the poles (see review by <a href="https://www.annualreviews.org/doi/full/10.1146/annurev-earth-040809-152447">Pierrehumbert et al. 2011</a>).</p>
+<h2 id="1)-Background:-Snowball-Earth">1) Background: Snowball Earth<a class="anchor-link" href="#1)-Background:-Snowball-Earth"> </a></h2><p>Geological evidence shows that the Neoproterozoic Era (550 to 1000 million years ago) is marked by two global glaciation events, in which Earth's surface was covered in ice and snow from the Equator to the poles (see review by <a href="https://www.annualreviews.org/doi/full/10.1146/annurev-earth-040809-152447">Pierrehumbert et al. 2011</a>.</p>
 
 </div>
 </div>
@@ -192,7 +228,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="https://news.cnrs.fr/sites/default/files/styles/asset_image_full/public/assets/images/frise_earths_glaciations_72dpi.jpg?itok=MgKrHlIV" alt="" /></p>
-<p>In this lecture, we make a simple modification to our zero-dimensional energy balance model from Lecture 1 that will allow us to explore the processes behind these sudden glaciations.</p>
+<h3 id="1.1)-The-ice-albedo-feedback">1.1) The ice-albedo feedback<a class="anchor-link" href="#1.1)-The-ice-albedo-feedback"> </a></h3><p>In Lecture 1, we used a <strong>constant</strong> value $α = 0.3$ for Earth's planetary albedo, which is a reasonable thing to do for small climate variations relative to the present (such as the difference between the present-day and preindustrial climates). In the case of large variations, however, this approximation is not very reliable.</p>
+<p>While oceans are dark and absorbant, $α_{ocean} \approx 0.05$, ice and snow are bright and reflective: $\alpha_{ice,\,snow} \approx 0.5$ to $0.9$. Thus, if much of the ocean's surface freezes over, we expect Earth's albedo to rise dramatically, causing more sunlight to be reflected to space, which in turn causes even more cooling and more of the ocean to freeze, etc. This <em>non-linear positive feedback effect</em> is referred to as the <strong>ice-albedo feedback</strong> (see illustration below).</p>
 
 </div>
 </div>
@@ -440,8 +477,6 @@ $$\alpha(T) = \begin{cases}
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">-</span><span class="mf">38.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Alternate universe pre-industrial climate (stable &#39;&#39;cold&#39;&#39; branch)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;aqua&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">T_un</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Impossible alternate climate (unstable branch&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="c1"># 	plot!(p_equil, [200], [-38.3], markershape=:circle, label=&quot;Alternate universe pre-industrial climate (stable &#39;&#39;cold&#39;&#39; branch)&quot;, color=:aqua, markersize=8)</span>
-<span class="c1"># 	plot!(p_equil, [200], [T_un], markershape=:diamond, label=&quot;Impossible alternate climate (unstable branch)&quot;, color=:lightgrey, markersize=8, markerstrokecolor=:white, alpha=1., markerstrokestyle=:dash)</span>
 </pre></div>
 
     </div>
@@ -456,7 +491,7 @@ $$\alpha(T) = \begin{cases}
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7f2ec901d790&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7f7c5296b340&gt;</pre>
 </div>
 
 </div>
@@ -500,7 +535,9 @@ $$\alpha(T) = \begin{cases}
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="2.2)-Radiative-stability-analysis">2.2) Radiative stability analysis<a class="anchor-link" href="#2.2)-Radiative-stability-analysis"> </a></h3><p>We can understand why our model has two stable equilibria and one unstable equilibrium by applying concepts from dynamical systems theory.</p>
 <p>Recall that, with fixed CO₂ concentrations, our energy balance model differential equation can be expressed as:</p>
-$$C\frac{dT}{dT} = ASR(T) - OTR(T)$$<p>,</p>
+<p>
+$$C\frac{dT}{dT} = ASR(T) - OTR(T)$$
+</p>
 <p>where now the Absorbed Solar Radiatio (ASR) is also temperature dependent because the albedeo $\alpha (T)$ is.</p>
 <p>In particular, by plotting the right-hand-side tendency terms as a function of the state variable $T$, we can plot a stability diagram for our system that tells us whether the plan will warm ($C\frac{dT}{dt}$ &gt; 0) or cool ($C\frac{dT}{dt}$ &lt; 0)</p>
 
@@ -605,7 +642,7 @@ $$C\frac{dT}{dT} = ASR(T) - OTR(T)$$<p>,</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.2)-Did-the-increasing-brightness-of-the-Sun-melt-the-Snowball?">3.2) Did the increasing brightness of the Sun melt the Snowball?<a class="anchor-link" href="#3.2)-Did-the-increasing-brightness-of-the-Sun-melt-the-Snowball?"> </a></h3><p>If we start out in the Neoproterozoic climate and all we do is increase solar insolation to today's value of  1368 W/m², can we warm the planet up to the pre-industrial temperature of °C?</p>
+<h3 id="3.2)-Did-the-increasing-brightness-of-the-Sun-melt-the-Snowball?">3.2) Did the increasing brightness of the Sun melt the Snowball?<a class="anchor-link" href="#3.2)-Did-the-increasing-brightness-of-the-Sun-melt-the-Snowball?"> </a></h3><p>If we start out in the Neoproterozoic climate and all we do is increase solar insolation to today's value of $ S = 1368 W/m^2$, can we warm the planet up to the pre-industrial temperature of T = 14°C?</p>
 
 </div>
 </div>
@@ -649,39 +686,6 @@ $$C\frac{dT}{dT} = ASR(T) - OTR(T)$$<p>,</p>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tvec</span><span class="p">[</span><span class="n">svec</span><span class="o">==</span><span class="mi">1368</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>-38.615384615384635</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -741,6 +745,33 @@ $$C\frac{dT}{dT} = ASR(T) - OTR(T)$$<p>,</p>
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.3)-If-not-the-Sun,-how-did-Snowball-Earth-melt?">3.3) If not the Sun, how did Snowball Earth melt?<a class="anchor-link" href="#3.3)-If-not-the-Sun,-how-did-Snowball-Earth-melt?"> </a></h3><p>The leading theory is that a slow but steady outgassing of CO$_2$ from volcanoes eventually caused a strong enough greenhouse gas effect to offset the cooling effect of the frozen surface's high albedo and raise temperatures above the melting point $-10$°C.</p>
+<p><img src="https://hartm242.files.wordpress.com/2011/03/snowball-earth.jpg" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In Homework 1, you will extend the above model to include the effect of CO₂ and determine how much CO2 would need to be added to the snowball for it to melt.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Towards-realistic-climate-modelling">Towards realistic climate modelling<a class="anchor-link" href="#Towards-realistic-climate-modelling"> </a></h3><p>In this simple model, the preindustrial climate of °C is so warm that there is no ice anywhere on the planet. Indeed, the only two valid stable climates are one with no ice or one with ice everywhere.</p>
+<p>So how did Earth's preindustrial climate, which was relatively stable for thousands of years, have substantial ice caps at the poles?</p>
+<p>The "Aquaplanet", a simple three-dimensional ocean-world climate model</p>
+<p>An "Aquaplanet" is a three-dimensional global climate simulation of a hypothetical planet covered entirely by a single global Ocean. While this is of course very different from Earth, where 27% of the planet is covered in land, the "Aquaplanet" exhibits many of the same characteristics as Earth and is much more realistic than our zero-dimensional climate model above.</p>
+<p>The video below shows that the Aquaplanet simulation exhibits a third equilibrium state, with a mostly-liquid ocean but ice caps at the poles, in addition to the two we found in our zero-dimensional model.</p>
+<p>In Homework 10, you will build a simple two-dimensional version of the aqua-planet and explore its stability.</p>
+
+</div>
+</div>
+</div>
 </div>
 
 
