@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Lecture 5, Evolution in time and space, Advection and diffusion in 1D" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="work under progress; bifurcations need to be added" />
-<meta property="og:description" content="work under progress; bifurcations need to be added" />
+<meta name="description" content="personal code base" />
+<meta property="og:description" content="personal code base" />
 <link rel="canonical" href="https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html" />
 <meta property="og:url" content="https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html" />
 <meta property="og:site_name" content="florianboergel.github.io" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-12-01T00:00:00-06:00" />
 <script type="application/ld+json">
-{"url":"https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html","@type":"BlogPosting","headline":"Lecture 5, Evolution in time and space, Advection and diffusion in 1D","dateModified":"2020-12-01T00:00:00-06:00","datePublished":"2020-12-01T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html"},"description":"work under progress; bifurcations need to be added","@context":"https://schema.org"}</script>
+{"url":"https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html","@type":"BlogPosting","headline":"Lecture 5, Evolution in time and space, Advection and diffusion in 1D","dateModified":"2020-12-01T00:00:00-06:00","datePublished":"2020-12-01T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://florianboergel.github.io/personal_blog/jupyter/2020/12/01/advection-diffusion.html"},"description":"personal code base","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/personal_blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://florianboergel.github.io/personal_blog/feed.xml" title="florianboergel.github.io" /><link rel="shortcut icon" type="image/x-icon" href="/personal_blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Lecture 5, Evolution in time and space, Advection and diffusion in 1D</h1><p class="page-description">work under progress; bifurcations need to be added</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-01T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Lecture 5, Evolution in time and space, Advection and diffusion in 1D</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-01T00:00:00-06:00" itemprop="datePublished">
         Dec 1, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -294,7 +294,7 @@ of</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7fce77237e20&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7fc1ae139430&gt;</pre>
 </div>
 
 </div>
@@ -367,7 +367,7 @@ of</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7fce76cc7eb0&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7fc1ae03a2b0&gt;</pre>
 </div>
 
 </div>
@@ -468,16 +468,16 @@ In the last term on the right-hand side, we see that we require combinations of 
 Calling <code>T</code> the current vector, i.e. $\mathbf{T}^n := (T^n_i)_{i=1, \ldots, N_x}$, and <code>T′</code> the new vector at the next time step, we have the following basic expression:</p>
 <blockquote><p>T′[i] = T[i] + δt <em> U </em> (T[i-1] - T[i]) / δx</p>
 </blockquote>
-<p>But now we realise a problem:What should we do when $i=1$? This will try to access the index 0 of the vector <code>T</code>, which does not exist!</p>
-<p>This illustrates the necessity of choosing <strong>boundary conditions</strong> that specify what happens at the edge of the domain.
-For simplicity we will choose to use <strong>periodic boundary conditions</strong>. This is a convenient mathematical fiction that allows us to treat all cells as being on the same footing, by wrapping the system around a torus, so that cells $i=1$ and $i=N_x$ are neighbours.</p>
+<p>But now we realise a problem:What should we do when $i=0$? This will try to access the index -1 of the vector <code>T</code>, which does not exist!
+This illustrates the necessity of choosing <strong>boundary conditions</strong> that specify what happens at the edge of the domain.
+For simplicity we will choose to use <strong>periodic boundary conditions</strong>. This is a convenient mathematical fiction that allows us to treat all cells as being on the same footing, by wrapping the system around a torus, so that cells $i=0$ and $i=N_x$ are neighbours.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can then write this as follows, where we separate out the case $i=1$:</p>
+<p>We can then write this as follows, where we separate out the case $i=0$:</p>
 
 </div>
 </div>
@@ -522,6 +522,25 @@ For simplicity we will choose to use <strong>periodic boundary conditions</stron
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deltat</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">U</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">initcondition</span> <span class="o">=</span> <span class="n">t0</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_func</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">T0</span> <span class="o">=</span> <span class="n">initcondition</span><span class="p">):</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">T0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">deltax</span> <span class="o">=</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -553,25 +572,6 @@ For simplicity we will choose to use <strong>periodic boundary conditions</stron
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deltat</span> <span class="o">=</span> <span class="mf">0.001</span>
-<span class="n">U</span> <span class="o">=</span> <span class="mf">0.2</span>
-<span class="n">initcondition</span> <span class="o">=</span> <span class="n">t0</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">plot_func</span><span class="p">,</span> 
          <span class="n">function</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">advection</span><span class="p">),</span>
          <span class="n">steps</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Timesteps&quot;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">),</span>
@@ -579,7 +579,6 @@ For simplicity we will choose to use <strong>periodic boundary conditions</stron
          <span class="n">U</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">U</span><span class="p">),</span>         
          <span class="n">xs</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span>
          <span class="n">T0</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">advection</span><span class="p">(</span><span class="n">initcondition</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">U</span><span class="p">)));</span>
-         
 </pre></div>
 
     </div>
